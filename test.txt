@@ -1,0 +1,52 @@
+        Account account = new Account("marcin", "marcin");
+        Account account1 = new Account("marcin", "marcin");
+        Account account2 = new Account("marcin", "marcin");
+        Account account3 = new Account("marcin", "marcin");
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(account);
+        accounts.add(account1);
+        accounts.add(account2);
+        accounts.add(account3);
+        Field field = new Field();
+        field.setName("Facebook");
+        field.setData("facebook.com");
+        field.setNotes("social media");
+        field.setAccounts(accounts);
+
+        HibernateUtil.create(account);
+        HibernateUtil.create(account1);
+        HibernateUtil.create(account2);
+        HibernateUtil.create(account3);
+        HibernateUtil.create(field);
+
+
+
+	Account account = new Account("mariola", "marczynska");
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        CriteriaQuery<Field> criteriaQuery = session.getCriteriaBuilder().createQuery(Field.class);
+        Root<Field> from = criteriaQuery.from(Field.class);
+        Predicate condition = session.getCriteriaBuilder().equal(from.get("id"), 1);
+        criteriaQuery.where(condition);
+        Field field = session.createQuery(criteriaQuery).getSingleResult();
+        field.addAccount(account);
+        session.close();
+
+        HibernateUtil.create(account);
+        HibernateUtil.update(field);
+
+
+
+Session session = HibernateUtil.getSessionFactory().openSession();
+        CriteriaQuery<Field> criteriaQuery = session.getCriteriaBuilder().createQuery(Field.class);
+        Root<Field> from = criteriaQuery.from(Field.class);
+        Predicate condition = session.getCriteriaBuilder().equal(from.get("id"), 5);
+        criteriaQuery.where(condition);
+        Field field = session.createQuery(criteriaQuery).getSingleResult();
+        session.close();
+
+        List<Account> accounts = field.getAccounts();
+
+        HibernateUtil.delete(field);
+
+        accounts.forEach(account -> HibernateUtil.delete(account));

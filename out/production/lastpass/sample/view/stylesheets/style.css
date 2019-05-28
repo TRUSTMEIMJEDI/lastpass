@@ -1,0 +1,141 @@
+@font-face {
+    font-family: Raleway;
+    src: url(../fonts/Raleway-Regular.ttf);
+}
+@font-face {
+    font-family: Raleway;
+    font-weight: bold;
+    src: url(../fonts/Raleway-Bold.ttf);
+}
+@font-face {
+    font-family: Raleway;
+    font-weight: italic;
+    src: url(../fonts/Raleway-Italic.ttf);
+}
+@font-face {
+    font-family: Raleway;
+    font-weight: medium;
+    src: url(../fonts/Raleway-Medium.ttf);
+}
+
+.root {
+    -fx-font-family: Raleway;
+    -fx-font-size: 14;
+}
+
+Button, ComboBox, ToggleButton, DatePicker, ColorPicker, .menu-item, .menu-button {
+    -fx-cursor: hand;
+}
+
+TableView:focused, ListView:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    //-fx-background-radius: 5, 4, 3;
+}
+
+.lBold {
+    -fx-font-weight: bold;
+}
+.lItalic {
+    -fx-font-style: italic;
+}
+
+.editionPane {
+    -fx-background-color: rgba(0,0,0,0.5);
+}
+.editionBox {
+    -fx-background-color: rgba(255,255,255,1);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.listViewCell:hover {
+    -fx-cursor: hand;
+}
+.listViewCell > .nom {
+    -fx-font-weight: bold;
+}
+.listViewCell > .domaine {
+    -fx-font-style: italic;
+    -fx-text-fill: #5f5f5f;
+}
+.list-cell:selected > .listViewCell > .domaine {
+    -fx-text-fill: white;
+}
+#lvSelection .list-cell:selected, .table-row-cell:selected {
+    -fx-background-color: #7fbcff;
+}
+#detailsIdleView {
+    -fx-background-color: white;
+}
+#detailsIdleView > .titre {
+    -fx-font-size: 28;
+}
+
+.bSelectionAction, .bSelectionActionFirst,
+.bDetailsAction, .bDetailsActionFirst,
+#bSelectionFilter {
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.bSelectionAction:focused, .bDetailsAction:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+}
+.bSelectionAction {
+    -fx-border-width: 0 1 0 0;
+}
+.bSelectionActionFirst {
+    -fx-border-width: 0 1 0 1;
+}
+.bDetailsActionFirst {
+    -fx-border-width: 1 1 1 0;
+}
+.bDetailsAction {
+    -fx-border-width: 0 1 1 0;
+}
+#bSelectionFilter {
+    -fx-border-width: 0 1 1 1;
+}
+
+#spDetailsNotes {
+    -fx-background-color: transparent;
+}
+
+.lTitle {
+    -fx-font-size: 42;
+}
+.lTitrePetit {
+    -fx-font-size: 36;
+}
+
+#lvSelection {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
+    -fx-box-border: transparent;
+    -fx-text-box-border: transparent;
+}
+#tfSelectionFilter {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0 0 1 1;
+}
+
+#tcDetailsColumnNumber {
+    -fx-alignment: center;
+}
+
+.bpEtatA > .label, .bpEtatNA > .label {
+    -fx-text-fill: beige;
+}
+.bpEtatA {
+    -fx-background-color: #2fb254;
+}
+.bpEtatNA {
+    -fx-background-color: #ac2925;
+    -fx-cursor: hand;
+}
