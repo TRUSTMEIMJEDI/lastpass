@@ -76,7 +76,7 @@ public class Account implements Serializable {
     }
 
     public void setCreationDate() {
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.creationDate = (date);
     }
 

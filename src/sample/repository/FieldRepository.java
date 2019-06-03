@@ -46,6 +46,7 @@ public class FieldRepository implements IFieldRepository {
     @Override
     public void addAccount(Field field, Account account) {
         field.addAccount(account);
+        HibernateUtil.create(account);
         HibernateUtil.update(field);
     }
 

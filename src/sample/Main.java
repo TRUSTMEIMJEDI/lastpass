@@ -19,7 +19,8 @@ public class Main extends Application {
     private final static String FXML_MAIN_APP = FOLDER_FXML + "MainApp.fxml";
     private final static String FXML_APP = FOLDER_FXML + "App.fxml";
     public final static String FXML_FIELDINFO = FOLDER_FXML + "FieldInfo.fxml";
-    public final static String FXML_FIELDINFO_IDLE = FOLDER_FXML + "FieldInfoIdle.fxml";
+    public final static String FXML_ACCOUNTINFO = FOLDER_FXML + "AccountInfo.fxml";
+    public final static String FXML_ABOUT = FOLDER_FXML + "About.fxml";
 
     private final static String CSS_BOOTSTRAP = FOLDER_CSS + "bootstrap3.css";
     private final static String CSS_PASSWORDMANAGER = FOLDER_CSS + "style.css";

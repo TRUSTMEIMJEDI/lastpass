@@ -52,6 +52,12 @@ public class AppController implements Initializable {
     private FieldInfoController fieldInfoController;
     private Parent infoFieldView;
 
+    private AccountInfoController accountInfoController;
+    private Parent infoAccountView;
+
+    private AboutController aboutController;
+    private Parent aboutView;
+
     // FXML
     @FXML
     private AnchorPane root;
@@ -134,25 +140,81 @@ public class AppController implements Initializable {
         lvDomains.setPlaceholder(new Label("No domain"));
         tvAccounts.setPlaceholder(new Label("No account"));
 
+        initInfoView();
         initButtons();
         initDomainList();
         initUi();
     }
 
     private void initInfoView() {
-        FXMLLoader fxmlLoaderFieldInfo = new FXMLLoader(getClass().getResource(Main.FXML_FIELDINFO));
+        //FXMLLoader fxmlLoaderFieldInfo = new FXMLLoader(getClass().getResource(Main.FXML_FIELDINFO));
+        FXMLLoader fxmlLoaderFieldInfo = new FXMLLoader();
+        fxmlLoaderFieldInfo.setLocation(Main.class.getResource(Main.FXML_FIELDINFO));
+        //FXMLLoader fxmlLoaderAbout = new FXMLLoader(getClass().getResource(Main.FXML_ABOUT));
+        FXMLLoader fxmlLoaderAbout = new FXMLLoader();
+        fxmlLoaderAbout.setLocation(Main.class.getResource(Main.FXML_ABOUT));
+        //FXMLLoader fxmlLoaderAccountInfo = new FXMLLoader(getClass().getResource(Main.FXML_ACCOUNTINFO));
+        FXMLLoader fxmlLoaderAccountInfo = new FXMLLoader();
+        fxmlLoaderAccountInfo.setLocation(Main.class.getResource(Main.FXML_ACCOUNTINFO));
 
         try {
             infoFieldView = fxmlLoaderFieldInfo.load();
             fieldInfoController = fxmlLoaderFieldInfo.getController();
 
+            infoAccountView = fxmlLoaderAccountInfo.load();
+            accountInfoController = fxmlLoaderAccountInfo.getController();
+
+            aboutView = fxmlLoaderAbout.load();
+            aboutController = fxmlLoaderAbout.getController();
+
             fieldInfoController.bindParent(this);
+            accountInfoController.bindParent(this);
+            aboutController.bindParent(this);
 
-
-            setAnchor(infoFieldView);
+            setAnchor(infoFieldView, infoAccountView, aboutView);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Field getFieldSelected() {
+        return fieldSelected;
+    }
+
+    public Account getAccountSelected() {
+        return accountSelected;
+    }
+
+    private void mountView(Parent p) {
+        if (!root.getChildren().contains(p)) root.getChildren().add(p);
+    }
+
+    void unMountViews() {
+        root.getChildren().removeAll(
+                infoAccountView,
+                infoFieldView,
+                aboutView
+        );
+    }
+
+    void unMountAccountView() {
+        root.getChildren().remove(infoAccountView);
+        int id = fieldSelected.getId();
+        fieldSelected.setAccounts(fieldRepository.getFieldById(id).getAccounts());
+        initAccountTable(fieldSelected);
+    }
+
+    void unMountFieldView() {
+        root.getChildren().remove(infoFieldView);
+        initDomainList();
+    }
+
+    void unMountAboutView() {
+        root.getChildren().remove(aboutView);
+    }
+
+    public void mountAbout() {
+        root.getChildren().add(aboutView);
     }
 
     public void setMainApp(Main mainApp) {
@@ -162,11 +224,6 @@ public class AppController implements Initializable {
     @FXML
     public void findByFilter() {
         tfFilter.setText("");
-    }
-
-    @FXML
-    public void test() {
-
     }
 
     private void initDomainList() {
@@ -338,31 +395,53 @@ public class AppController implements Initializable {
     @FXML
     public void addField() {
         System.out.println("[FIELD] Add clicked!");
+        mountView(infoFieldView);
+        fieldInfoController.createNewField();
     }
 
     @FXML
     public void modifyField() {
         System.out.println("[FIELD] Modify clicked!");
+        if (fieldSelected != null) {
+            mountView(infoFieldView);
+            fieldInfoController.initFieldInfo(fieldSelected);
+        }
     }
 
     @FXML
     public void removeField() {
         System.out.println("[FIELD] Remove clicked!");
+        if (fieldSelected != null) {
+            fieldRepository.deleteField(fieldSelected);
+            fields.remove(fieldSelected);
+            //initDomainList();
+        }
     }
 
     @FXML
     public void addAccount() {
         System.out.println("[ACCOUNT] Add clicked!");
+        mountView(infoAccountView);
+        accountInfoController.createNewAccount(fieldSelected);
     }
 
     @FXML
     public void modifyAccount() {
         System.out.println("[ACCOUNT] Modify clicked!");
+        if (accountSelected != null) {
+            mountView(infoAccountView);
+            accountInfoController.initAccountInfo(accountSelected);
+        }
     }
 
     @FXML
     public void removeAccount() {
         System.out.println("[ACCOUNT] Remove clicked!");
+        if (accountSelected != null) {
+            fieldSelected.getAccounts().remove(accountSelected);
+            initAccountTable(fieldSelected);
+            accountRepository.deleteAccount(accountSelected);
+        }
     }
 
     private void updateFieldPanel(Field field) {
@@ -455,7 +534,7 @@ public class AppController implements Initializable {
         });
         fieldSelected.setAccounts(accountList);
         initAccountTable(fieldSelected);
-        
+
 //        Account account = fieldSelected.getAccounts().get(li);
 //        fieldSelected.getAccounts().remove(account);
 //        accountList.add(account);

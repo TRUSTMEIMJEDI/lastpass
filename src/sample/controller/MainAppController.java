@@ -6,6 +6,7 @@ import sample.Main;
 
 public class MainAppController {
     private Main mainApp;
+    AppController app;
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
@@ -28,6 +29,6 @@ public class MainAppController {
 
     @FXML
     private void handleAbout() {
-
+        app.mountAbout();
     }
 }
