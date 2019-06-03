@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="editionPane" xmlns="http://javafx.com/javafx/8.0.111"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AboutController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="editionBox" AnchorPane.bottomAnchor="20.0"
+                    AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <bottom>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <buttons>
+                        <Button fx:id="bOk" mnemonicParsing="false" onAction="#unMountAbout" text="Ok"/>
+                    </buttons>
+                </ButtonBar>
+            </bottom>
+            <top>
+                <Label styleClass="lTitle" text="About" BorderPane.alignment="CENTER"/>
+            </top>
+            <center>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-font-size: 20;"
+                      BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </BorderPane.margin>
+                    <children>
+                        <TextFlow textAlignment="CENTER">
+                            <children>
+                                <Label text="Developped by "/>
+                                <Label styleClass="lBold" text="Marcin Friedrich"/>
+                            </children>
+                        </TextFlow>
+                        <TextFlow textAlignment="CENTER">
+                            <children>
+                                <Label text="Icons provided by "/>
+                                <Label styleClass="lBold" text="Dave Gandy"/>
+                                <Label text="(from the FontAwesome collection)"/>
+                            </children>
+                        </TextFlow>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
