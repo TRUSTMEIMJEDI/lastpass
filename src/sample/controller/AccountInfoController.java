@@ -1,9 +1,12 @@
 package sample.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import sample.model.Account;
 import sample.model.Field;
@@ -25,6 +28,7 @@ public class AccountInfoController implements Initializable {
     private Field field;
 
     private boolean update = false;
+    private int passwordSize;
 
     @FXML
     TextField tfUser;
@@ -40,6 +44,10 @@ public class AccountInfoController implements Initializable {
     Button bCancel;
     @FXML
     Label lTitle;
+    @FXML
+    Slider passSize;
+    @FXML
+    Label sliderValue;
 
     public void btnOk() {
         if (update) {
@@ -68,7 +76,8 @@ public class AccountInfoController implements Initializable {
                 .useUpper(true)
                 .build();
 
-        String password = passwordGenerator.generate(12);
+        passwordSize = (int) passSize.getValue();
+        String password = passwordGenerator.generate(passwordSize);
         tfPassword.setText(password);
     }
 
@@ -82,6 +91,25 @@ public class AccountInfoController implements Initializable {
     }
 
     void createNewAccount(Field f) {
+        passSize.setMin(8);
+        passSize.setMax(128);
+        passSize.setValue(30);
+        passSize.setBlockIncrement(1.0);
+        passSize.setShowTickLabels(true);
+        passSize.setShowTickMarks(true);
+
+        passSize.valueProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, //
+                                Number oldValue, Number newValue) {
+
+                String liczba = String.valueOf(newValue);
+                sliderValue.setText(liczba.split("\\.")[0]);
+                passwordSize = (int) newValue;
+            }
+        });
+
         update = false;
         lTitle.setText("Add new account");
         field = f;
